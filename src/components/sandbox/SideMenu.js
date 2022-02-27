@@ -63,8 +63,9 @@ const iconList = {
   "/examine-manage/examine/news" : <UserOutlined />,
   "/examine-manage/examine/list" : <UserOutlined />,
   "/release-manage" : <UserOutlined />,
-  "/release-manage/release/await" : <UserOutlined />,
-  "/release-manage/release/issue" : <UserOutlined />
+  "/release-manage/release/unpublished" : <UserOutlined />,
+  "/release-manage/release/published" : <UserOutlined />,
+  "/release-manage/release/sunset" : <UserOutlined />
 }
 
 function SideMenu() {
