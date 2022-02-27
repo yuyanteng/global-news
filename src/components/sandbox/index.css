@@ -1,0 +1,12 @@
+.right-box {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+.logo {
+  font-size: 18px;
+  line-height: 32px;
+  background-color:slategrey;
+  margin: 10px;
+  text-align: center;
+}

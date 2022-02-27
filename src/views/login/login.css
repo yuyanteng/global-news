@@ -1,0 +1,21 @@
+.login-box {
+  background-color: cornflowerblue;
+  height: 100%;
+}
+.login-content {
+  position: fixed;
+  background-color:blanchedalmond;
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding:20px;
+}
+.login-content-title {
+  text-align: center;
+  height: 80px;
+  line-height: 80px;
+  font-size: 30px;
+  color: white;
+}
