@@ -15,21 +15,21 @@ let UserForm = forwardRef((props,ref) => {
   }, [isEditDisabled])
 
   // 判断登录者管理自己区域的权限
-  const { roleId, region, username} = JSON.parse(localStorage.getItem("token"))
+  const { roleId, region} = JSON.parse(localStorage.getItem("token"))
   const roleObj = {
-    "1": "superadmin",
-    "2": "admin",
-    "3": "editor",
+    "1": "超级管理员",
+    "2": "区域管理员",
+    "3": "区域编辑",
   }
   const checkRegionDisabled = (item) => {
     if(isEdit) {
-      if(roleObj[roleId] === "superadmin"){
+      if(roleObj[roleId] === "超级管理员"){
         return false
       } else {
         return true
       }
     } else {
-      if(roleObj[roleId] === "superadmin") {
+      if(roleObj[roleId] === "超级管理员") {
         return false
       } else {
         return item.value !== region
@@ -38,16 +38,16 @@ let UserForm = forwardRef((props,ref) => {
   }
   const checkRoleDisabled = (item) => {
     if(isEdit) {
-      if(roleObj[roleId] === "superadmin"){
+      if(roleObj[roleId] === "超级管理员"){
         return false
       } else {
         return true
       }
     } else {
-      if(roleObj[roleId] === "superadmin") {
+      if(roleObj[roleId] === "超级管理员") {
         return false
       } else {
-        return item.id !== 3
+        return roleObj[item.id] !== "区域编辑"
       }
     }
   }

@@ -15,7 +15,7 @@ const { confirm } = Modal;
 export default function UserList() {
   const [dataSource, setDataSource] = useState([])
   const [regionList, setRegionList] = useState([])
-  const [rolesList, setRolesnList] = useState([])
+  const [rolesList, setRolesList] = useState([])
   const [isAddUserVisible, setIsAddUserVisible] = useState(false);
   const [isEditVisible, setIsEditVisibled] = useState(false);
   const [isEditDisable, setIsEditDisabled] = useState(false);
@@ -31,25 +31,24 @@ export default function UserList() {
   useEffect(() => {
     axios.get("http://localhost:9000/users?_expand=role").then(res => {
       const list = res.data
-      // 左侧列表数据
-      setDataSource(list)
+      // 左侧列表数据  过滤登录用户权限 
+      const roleObj = {
+        "1": "超级管理员",
+        "2": "区域管理员",
+        "3": "区域编辑",
+      }
+      setDataSource(roleObj[roleId] === "超级管理员" ?list:[
+        ...list.filter(item=>item.username===username),
+        ...list.filter(item=>item.region === region && roleObj[item.roleId] === "区域编辑")
+      ])
     })
   }, [refresh])
   
   useEffect(() => {
     axios.get("http://localhost:9000/regions").then(res => {
       const list = res.data
-      // 区域数据 过滤登录用户权限 
-      const roleObj = {
-        "1": "superadmin",
-        "2": "admin",
-        "3": "editor",
-      }
-      setRegionList(roleObj[roleId] === "superadmin" ?list:[
-        ...list.filter(item=>item.username===username),
-        ...list.filter(item=>item.region === region && roleObj[item.roleId] === "editor")
-
-      ])
+      // 区域数据
+      setRegionList(list)
     })
   }, [])
 
@@ -57,7 +56,7 @@ export default function UserList() {
     axios.get("http://localhost:9000/roles").then(res => {
       const list = res.data
       // 角色数据
-      setRolesnList(list)
+      setRolesList(list)
     })
   }, [])
 
@@ -154,7 +153,6 @@ export default function UserList() {
       setIsAddUserVisible(false)
 
       addForm.current.resetFields()
-
       axios.post(`http://localhost:9000/users`, {
         ...value,
         "roleState": true,
